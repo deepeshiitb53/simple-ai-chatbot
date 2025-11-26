@@ -7,6 +7,23 @@ st.set_page_config(page_title="Simple AI Chatbot", page_icon="🤖")
 
 st.title("🤖 Simple AI Chatbot")
 
+# Sidebar settings
+with st.sidebar:
+    st.header("Settings")
+    model_name = st.selectbox(
+        "Select Model",
+        ["gpt-4o", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4.1-preview"],
+        index=0
+    )
+    temperature = st.slider(
+        "Temperature",
+        min_value=0.0,
+        max_value=2.0,
+        value=1.0,
+        step=0.1,
+        help="Higher values make the output more random, lower values make it more focused."
+    )
+
 # Initialize OpenAI client
 api_key = os.getenv("OPENAI_API_KEY")
 
@@ -36,11 +53,12 @@ if prompt := st.chat_input("What is up?"):
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         stream = client.chat.completions.create(
-            model="gpt-4.1",
+            model=model_name,
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
+            temperature=temperature,
             stream=True,
         )
         response = st.write_stream(stream)
