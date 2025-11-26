@@ -12,7 +12,7 @@ with st.sidebar:
     st.header("Settings")
     model_name = st.selectbox(
         "Select Model",
-        ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4.1-preview", "gpt-5.1"],
+        ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4.1-preview", "gpt-5.1", "gpt-5-mini"],
         index=0
     )
     temperature = st.slider(
@@ -31,12 +31,12 @@ with st.sidebar:
     )
     
     reasoning_effort = None
-    if model_name == "gpt-5.1":
+    if model_name in ["gpt-5.1", "gpt-5-mini"]:
         reasoning_effort = st.selectbox(
             "Reasoning Effort",
             ["none", "low", "medium", "high"],
             index=0,
-            help="Control the reasoning depth for GPT-5.1."
+            help=f"Control the reasoning depth for {model_name}."
         )
 
 # Initialize OpenAI client
