@@ -12,7 +12,7 @@ with st.sidebar:
     st.header("Settings")
     model_name = st.selectbox(
         "Select Model",
-        ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4.1-preview", "gpt-5.1-preview"],
+        ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4.1-preview", "gpt-5.1"],
         index=0
     )
     temperature = st.slider(
@@ -31,7 +31,7 @@ with st.sidebar:
     )
     
     reasoning_effort = None
-    if model_name == "gpt-5.1-preview":
+    if model_name == "gpt-5.1":
         reasoning_effort = st.selectbox(
             "Reasoning Effort",
             ["none", "low", "medium", "high"],
