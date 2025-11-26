@@ -23,6 +23,12 @@ with st.sidebar:
         step=0.1,
         help="Higher values make the output more random, lower values make it more focused."
     )
+    
+    system_prompt = st.text_area(
+        "System Prompt (Roleplay)",
+        value="You are a helpful assistant.",
+        help="Define the AI's personality or role here."
+    )
 
 # Initialize OpenAI client
 api_key = os.getenv("OPENAI_API_KEY")
@@ -52,12 +58,16 @@ if prompt := st.chat_input("What is up?"):
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
+        # Prepare messages with system prompt
+        messages = [{"role": "system", "content": system_prompt}]
+        messages.extend([
+            {"role": m["role"], "content": m["content"]}
+            for m in st.session_state.messages
+        ])
+        
         stream = client.chat.completions.create(
             model=model_name,
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
+            messages=messages,
             temperature=temperature,
             stream=True,
         )
