@@ -31,10 +31,17 @@ with st.sidebar:
     )
     
     reasoning_effort = None
-    if model_name in ["gpt-5.1", "gpt-5-mini"]:
+    if model_name == "gpt-5.1":
         reasoning_effort = st.selectbox(
             "Reasoning Effort",
             ["none", "low", "medium", "high"],
+            index=0,
+            help=f"Control the reasoning depth for {model_name}."
+        )
+    elif model_name == "gpt-5-mini":
+        reasoning_effort = st.selectbox(
+            "Reasoning Effort",
+            ["minimal", "medium", "high"],
             index=0,
             help=f"Control the reasoning depth for {model_name}."
         )
