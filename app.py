@@ -29,6 +29,15 @@ with st.sidebar:
         value="You are a helpful assistant.",
         help="Define the AI's personality or role here."
     )
+    
+    reasoning_effort = None
+    if model_name == "gpt-5.1-preview":
+        reasoning_effort = st.selectbox(
+            "Reasoning Effort",
+            ["none", "low", "medium", "high"],
+            index=0,
+            help="Control the reasoning depth for GPT-5.1."
+        )
 
 # Initialize OpenAI client
 api_key = os.getenv("OPENAI_API_KEY")
@@ -65,12 +74,19 @@ if prompt := st.chat_input("What is up?"):
             for m in st.session_state.messages
         ])
         
-        stream = client.chat.completions.create(
-            model=model_name,
-            messages=messages,
-            temperature=temperature,
-            stream=True,
-        )
+        # Prepare API arguments
+        api_args = {
+            "model": model_name,
+            "messages": messages,
+            "temperature": temperature,
+            "stream": True,
+        }
+        
+        # Add reasoning_effort only if applicable
+        if reasoning_effort:
+            api_args["reasoning_effort"] = reasoning_effort
+
+        stream = client.chat.completions.create(**api_args)
         response = st.write_stream(stream)
     
     # Add assistant response to chat history
