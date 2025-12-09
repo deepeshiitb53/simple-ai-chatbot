@@ -111,6 +111,7 @@ with st.sidebar:
         elif voice_source == "Enter custom Voice ID":
             custom_voice_id = st.text_input(
                 "Voice ID",
+                value="kvQSb3naDTi3sgHwwBC1",
                 placeholder="Enter ElevenLabs Voice ID (e.g., pNInz6obpgDQGcFmaJgB)",
                 help="Find voice IDs at https://elevenlabs.io/app/voice-library",
             )
