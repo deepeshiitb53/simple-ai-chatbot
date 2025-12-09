@@ -54,26 +54,51 @@ The application will open in your default web browser (usually at `http://localh
 2.  Press Enter to send.
 3.  Watch the AI respond in real-time!
 
-## Deployment (Share Your App)
+## 🚀 Sharing Your App with Friends
 
-The easiest way to share your app with the world is using **Streamlit Community Cloud**.
+Want to share your chatbot? 
 
-1.  **Push to GitHub**:
-    -   Create a GitHub repository.
-    -   Push your code (`app.py`, `requirements.txt`) to the repository.
-    -   *Note: Do NOT push your `.env` file containing your API key.*
+- ⚡ **Quick start**: See [QUICK_START.md](QUICK_START.md) for the fastest way
+- 📖 **Full guide**: See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions
+- 🛠️ **Helper scripts**: Use `./deploy.sh` (Mac/Linux) or `deploy.bat` (Windows)
 
-2.  **Deploy on Streamlit Cloud**:
-    -   Go to [share.streamlit.io](https://share.streamlit.io/).
-    -   Log in with GitHub.
-    -   Click "New app" and select your repository.
-    -   Click "Deploy".
+### Quick Options:
 
-3.  **Add Secrets (API Key)**:
-    -   Once deployed, go to your app's dashboard.
-    -   Click "Settings" -> "Secrets".
-    -   Add your API key like this:
-        ```toml
-        OPENAI_API_KEY = "sk-..."
-        ```
-    -   Save, and your app is live!
+1. **🌐 Streamlit Cloud (Recommended)** - Free, easy, public URL
+   - Push to GitHub → Deploy on [share.streamlit.io](https://share.streamlit.io/)
+   - Add secrets in dashboard → Share URL with friends!
+
+2. **🏠 Local Network** - Share on same WiFi
+   ```bash
+   streamlit run app.py --server.address 0.0.0.0
+   ```
+   Then share: `http://YOUR_IP:8501`
+
+3. **☁️ Other Platforms** - Railway, Render, Docker, etc.
+   - See [DEPLOYMENT.md](DEPLOYMENT.md) for full guide
+
+### Quick Deploy Steps (Streamlit Cloud):
+
+1. **Push to GitHub** (make sure `.env` is NOT committed)
+2. **Go to** [share.streamlit.io](https://share.streamlit.io/)
+3. **Deploy** your repository
+4. **Add secrets**:
+   ```toml
+   OPENAI_API_KEY = "sk-..."
+   ELEVENLABS_API_KEY = "..."  # Optional
+   ```
+5. **Share** your app URL!
+## TTS Integration (New!)
+
+- **Ultra-low latency TTS**: Uses ElevenLabs API with Flash models for near real-time speech playback.
+- **Experiment Voices**: Dynamic list from ElevenLabs, prioritizes Indian English accents automatically.
+- **Real-time Feel**: Audio starts immediately after AI text response completes (~200ms TTS latency).
+- **Usage**: Toggle TTS on in sidebar, enter API key, select voice & model. Audio auto-plays with controls.
+
+### TTS Setup
+1. Create account at [elevenlabs.io](https://elevenlabs.io/app/settings/api-keys)
+2. Copy your API key
+3. Paste into sidebar "ElevenLabs API Key" field
+4. Choose voice (Indian prioritized) and model (e.g., eleven_flash_2_5 for speed)
+
+**Note**: Browser autoplay policies may require clicking play first. For true streaming sync, future enhancement possible.

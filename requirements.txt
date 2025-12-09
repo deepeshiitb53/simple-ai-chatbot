@@ -1,3 +1,7 @@
 streamlit
 openai
 python-dotenv
+elevenlabs
+fastapi
+uvicorn[standard]
+websockets
