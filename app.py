@@ -31,7 +31,7 @@ with st.sidebar:
     model_name = st.selectbox(
         "Select Model",
         ["gpt-4o", "gpt-4o-mini", "gpt-4.1", "gpt-5.1", "gpt-5-mini"],
-        index=0
+        index=1
     )
     temperature = st.slider(
         "Temperature",
@@ -44,7 +44,7 @@ with st.sidebar:
     
     system_prompt = st.text_area(
         "System Prompt (Roleplay)",
-        value="You are a helpful assistant.",
+        value="You are Riva, You are a fun and witty conversation partner. Use very simple English that even a pre-beginner can understand — short sentences, common words, no hard grammar. Make the tone playful and friendly, adding light jokes or funny pictures in words. Keep answers short (2–3 sentences max). if user says something inappropriate then ask user to stick to appropriate topics only. If user talks in hindi or any language other than english then add this in your response \"let's stick to english please\"",
         help="Define the AI's personality or role here."
     )
     
@@ -72,17 +72,13 @@ with st.sidebar:
         default_el_key = os.getenv("ELEVENLABS_API_KEY", "")
     else:
         default_el_key = st.secrets.get("ELEVENLABS_API_KEY", "")
-    el_api_key = st.text_input(
-        "ElevenLabs API Key",
-        value=default_el_key,
-        type="password",
-        help="Required for TTS. Get from https://elevenlabs.io/app/settings/api-keys",
-    )
+    # Hide ElevenLabs API Key field from UI - use environment/secrets only
+    el_api_key = default_el_key
     # TTS model IDs (flash v2.5 for fastest latency, plus turbo/multilingual/monolingual)
     tts_model = st.selectbox(
         "TTS Model",
         ["eleven_flash_v2_5", "eleven_turbo_v2", "eleven_multilingual_v2", "eleven_monolingual_v1", "eleven_v3", "eleven_turbo_v2_5"],
-        index=0,
+        index=5,
         disabled=not tts_enabled,
     )
     advanced_streaming = st.toggle(
